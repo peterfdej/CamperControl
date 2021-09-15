@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Camper Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="icon" href="data:,">
+  <style>
+    html {font-family: Arial, Helvetica, sans-serif; display: inline-block; text-align: center;}
+	h1 {font-size: 1.7rem; color: white;}
+	label {font-size: 1.7rem; display: block; float: left; width: 80px; text-align: left; margin-left: 10px; margin-top: 15px}
+    p {  font-size: 1.2rem;}
+    body {  margin: 0;}
+    .topnav { overflow: hidden; background-color: #0A1128; color: white; font-size: 1.7rem; }
+    .content { padding: 10px; }
+    .card { background-color: white; box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); }
+    .cards { max-width: 700px; margin: 0 auto; display: grid; grid-gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .reading { font-size: 2.8rem; }
+    .card.temperature { color: #0e7c7b; }
+    .card.humidity { color: #17bebb; }
+    .card.pressure { color: #3fca6b; }
+    .card.gas { color: #d62246; }
+	.card.water { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <h1>CamperConsole</h1>
+  </div>
+  <div class="content">
+    <div class="cards">
+      <div class="card temperature">
+        <h4><i class="fas fa-thermometer-half"></i> TEMPERATUUR</h4>
+		<p>
+			<span class="reading"><label>buiten </label><span id="tempout">%TEMPOUT%</span> &deg;C</span><br>
+			<span class="reading"><label>binnen </label><span id="tempin">%TEMPIN%</span> &deg;C</span>
+		</p>
+      </div>
+      <div class="card humidity">
+        <h4><i class="fas fa-tint"></i> LUCHTVOCHTIGHEID</h4>
+		<p>
+			<span class="reading"><label>buiten </label><span id="humout">%HUMOUT%</span> &percnt;</span><br>
+			<span class="reading"><label>binnen </label><span id="humin">%HUMIN%</span> &percnt;</span>
+		</p>
+      </div>
+      <div class="card gas">
+        <h4><i class="fas fa-fire"></i> GASTANK</h4>
+		<p>
+			<span class="reading"><label>voor </label><span id="weightfront">%WEIGHTFRONT%</span> &percnt;</span><br>
+			<span class="reading"><label>achter </label><span id="weightback">%WEIGHTBACK%</span> &percnt;</span>
+		</p>
+      </div>
+	  <div class="card water">
+        <h4><i class="fas fa-water"></i> WATER</h4>
+		<p>
+			<span class="reading"><label>drink </label><span id="water">%WATER%</span> &percnt;</span><br>
+			<span class="reading"><label>vuil </label><span id="water2">%WATER2%</span> &percnt;</span>
+		</p>
+      </div>
+	  <div class="card voltage">
+        <h4><i class="fas fa-car-battery"></i> VOLTAGE</h4>
+		<p>
+			<span class="reading"><label>motor </label><span id="voltage1">%VOLTAGE1%</span> V</span><br>
+			<span class="reading"><label>huishoud </label><span id="voltage2">%VOLTAGE2%</span> V</span>
+		</p>
+      </div>
+    </div>
+  </div>
+<script>
+if (!!window.EventSource) {
+ var source = new EventSource('/events');
+ 
+ source.addEventListener('open', function(e) {
+  console.log("Events Connected");
+ }, false);
+ source.addEventListener('error', function(e) {
+  if (e.target.readyState != EventSource.OPEN) {
+    console.log("Events Disconnected");
+  }
+ }, false);
+ 
+ source.addEventListener('message', function(e) {
+  console.log("message", e.data);
+ }, false);
+ 
+ source.addEventListener('tempin', function(e) {
+  console.log("tempin", e.data);
+  document.getElementById("tempin").innerHTML = e.data;
+ }, false);
+ 
+ source.addEventListener('tempout', function(e) {
+  console.log("tempout", e.data);
+  document.getElementById("tempout").innerHTML = e.data;
+ }, false);
+ 
+ source.addEventListener('humin', function(e) {
+  console.log("humin", e.data);
+  document.getElementById("humin").innerHTML = e.data;
+ }, false);
+ 
+  source.addEventListener('humout', function(e) {
+  console.log("humout", e.data);
+  document.getElementById("humout").innerHTML = e.data;
+ }, false);
+ 
+ source.addEventListener('weightfront', function(e) {
+  console.log("weightfront", e.data);
+  document.getElementById("weightfront").innerHTML = e.data;
+ }, false);
+ 
+  source.addEventListener('weightback', function(e) {
+  console.log("weightback", e.data);
+  document.getElementById("weightback").innerHTML = e.data;
+ }, false);
+
+ source.addEventListener('voltage1', function(e) {
+  console.log("voltage1", e.data);
+  document.getElementById("voltage1").innerHTML = e.data;
+ }, false);
+ 
+ source.addEventListener('voltage2', function(e) {
+  console.log("voltage2", e.data);
+  document.getElementById("voltage2").innerHTML = e.data;
+ }, false);
+ 
+ source.addEventListener('water', function(e) {
+  console.log("water", e.data);
+  document.getElementById("water").innerHTML = e.data;
+ }, false);
+
+ source.addEventListener('water2', function(e) {
+  console.log("water2", e.data);
+  document.getElementById("water2").innerHTML = e.data;
+ }, false);
+}
+</script>
+</body>
+</html>

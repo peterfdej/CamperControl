@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Instellingen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+    html {font-family: Arial, Helvetica, sans-serif; display: inline-block; text-align: center;}
+	h1 {font-size: 1.7rem; color: white;}
+	label {font-size: 1.5rem; display: block; float: left; width: 230px; text-align: left; margin-left: 10px;}
+    p {  font-size: 1.2rem;}
+    body {  margin: 0;}
+	.align-right {text-align: right;border: 0;margin-right: 40px;}
+    .topnav { overflow: hidden; background-color: #0A1128; color: white; font-size: 1.7rem; }
+    .content { padding: 10px; }
+    .card { background-color: white; box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); }
+    .cards { max-width: 600px; margin: 0 auto; display: grid; grid-gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); }
+	.input {font-size: 1.5rem;}
+	</style>
+</head>
+<body style= "margin: 0;">
+	<div class="topnav">
+		<h1>Instellingen</h1>
+	</div>
+	<div class="content">
+		<div class="cards">
+			<div class="card">
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+						<label>SSID</label>
+						<input type="text" id ="ssid" name="ssid" >
+					</span><br>
+					<span class="input">
+						<label for="pass">Password</label>
+						<input type="text" id ="pass" name="pass">
+					</span>
+					</p>
+					<div class="align-right">
+						<input type ="submit" value ="Submit">
+					</div>
+				</form>
+			</div>
+			<div class="card">
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+						<label style="font-size: 2rem">Gastank voor</label><br><br>
+						<label>Actueel:</label>%weightfront%
+					</span><br>
+					<span class="input">
+						<label>Min. huidige waarde:</label>%weightfrontmin%<br>
+						<label for="weightfrontmin">Minimum nieuw:</label>
+						<input type="number" name="weightfrontmin" placeholder="nieuwe min. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+					<label>Max. huidige waarde:</label>%weightfrontmax%<br>
+					<label for="weightfrontmax">Maximum nieuw:</label>
+					<input type="number" name="weightfrontmax" placeholder="nieuwe max. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+			</div>
+			<div class="card">
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+					<label style="font-size: 2rem">Gastank achter</label><br><br>
+					<label>Actueel:</label>%weightback%
+					</span><br>
+					<span class="input">
+					<label>Min. huidige waarde:</label>%weightbackmin%<br>
+					<label for="weightbackmin">Minimum nieuw:</label>
+					<input type="number" name="weightbackmin" placeholder="nieuwe min. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+					<label>Max. huidige waarde:</label>%weightbackmax%<br>
+					<label for="weightbackmax">Maximum nieuw:</label>
+					<input type="number" name="weightbackmax" placeholder="nieuwe max. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+			</div>
+			<div class="card">
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+						<label style="font-size: 2rem">Watertank</label><br><br>
+						<label>Actueel:</label>%water%
+					</span><br>
+					<span class="input">
+						<label>Min. huidige waarde:</label>%watermin%<br>
+						<label for="watermin">Minimum nieuw:</label>
+						<input type="number" name="watermin" placeholder="nieuwe min. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+					<label>Max. huidige waarde:</label>%watermax%<br>
+					<label for="watermax">Maximum nieuw:</label>
+					<input type="number" name="watermax" placeholder="nieuwe max. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+			</div>
+			<div class="card">
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+						<label style="font-size: 2rem">Vuilwatertank</label><br><br>
+						<label>Actueel:</label>%water2%
+					</span><br>
+					<span class="input">
+						<label>Min. huidige waarde:</label>%water2min%<br>
+						<label for="watermin">Minimum nieuw:</label>
+						<input type="number" name="water2min" placeholder="nieuwe min. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+				<form action="/get" target="hidden-form">
+					<p>
+					<span class="input">
+					<label>Max. huidige waarde:</label>%water2max%<br>
+					<label for="watermax">Maximum nieuw:</label>
+					<input type="number" name="water2max" placeholder="nieuwe max. waarde">
+					</span><br>
+					</p>
+					<div class="align-right">
+						<input type="submit" value="Submit" onclick="submitMessage()">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
