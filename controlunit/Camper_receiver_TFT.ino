@@ -225,12 +225,12 @@ void loop() {
 // #########################################################################
 void updatedata()
 {
-  //update wasted water
+  //update waste water
   if ((millis() - valuetimer[5]) > MAXTIMEOUT) // too long no new data
   {
     new_VALUE[5] = 0;
     old_VALUE[5] = 0;
-    waterperc = 0;
+    water2perc = 0;
     Serial.println("connection timeout 5");
     valuetimer[5]=millis();
   }
