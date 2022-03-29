@@ -82,7 +82,7 @@ void loop() {
     readdht22();
     readgastank1();
     readgastank2();
-    readwaterlevel();
+    //readwaterlevel();
     //esp_deep_sleep_start(); //go to sleep 
     delay(5000);  
   } else {
