@@ -1,6 +1,6 @@
 
 #include "FS.h"
-#include <TFT_eSPI.h>
+#include <TFT_eSPI.h>  // Ili9488 Touch Setup21
 #include <SPI.h>
 #include <esp_now.h>
 #include <WiFi.h>
@@ -8,6 +8,17 @@
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
 #include "Settingswhite.h"
+
+/* User_Setup.h
+ * #define ILI9488_DRIVER
+ * #define TFT_MISO 19
+ * #define TFT_MOSI 23
+ * #define TFT_SCLK 18
+ * #define TFT_CS   25 
+ * #define TFT_DC    2
+ * #define TFT_RST   4 
+ * #define TOUCH_CS 27
+ */
 
 TFT_eSPI tft = TFT_eSPI();
 
@@ -226,7 +237,7 @@ void loop() {
 void updatedata()
 {
   //update waste water
-  if ((millis() - valuetimer[5]) > MAXTIMEOUT) // too long no new data
+  if ((millis() - valuetimer[5]) > (MAXTIMEOUT * 2)) // too long no new data
   {
     new_VALUE[5] = 0;
     old_VALUE[5] = 0;
@@ -237,7 +248,8 @@ void updatedata()
   if (new_VALUE[5] != old_VALUE[5])
   {
     valuetimer[5]=millis();
-    water2perc = 5*(map(new_VALUE[5], water2max, water2min, 20 , 0)); // map to percentage in steps of 5%
+    //water2perc = 5*(map(new_VALUE[5], water2max, water2min, 20 , 0)); // map to percentage in steps of 5%
+    water2perc = new_VALUE[5];
     if (water2perc < 0)
     {
       water2perc = 0;
@@ -250,7 +262,7 @@ void updatedata()
   fillwatertank(5, water2perc, X_POS[5], Y_POS[5],TFT_GREY);
 
   //update drinkwater
-  if ((millis() - valuetimer[4]) > MAXTIMEOUT) // too long no new data
+  if ((millis() - valuetimer[4]) > (MAXTIMEOUT * 2)) // too long no new data
   {
     new_VALUE[4] = 0;
     old_VALUE[4] = 0;
@@ -261,7 +273,8 @@ void updatedata()
   if (new_VALUE[4] != old_VALUE[4])
   {
     valuetimer[4]=millis();
-    waterperc = 5*(map(new_VALUE[4], watermax, watermin, 20 , 0)); // map to percentage in steps of 5%
+    //waterperc = 5*(map(new_VALUE[4], watermax, watermin, 20 , 0)); // map to percentage in steps of 5%
+    waterperc = new_VALUE[4];
     if (waterperc < 0)
     {
       waterperc = 0;
